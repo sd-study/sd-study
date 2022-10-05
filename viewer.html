@@ -217,7 +217,8 @@
                 downloaded++
                 downloadSlots++
                 updateDownloadStatus()
-                downloadNext()
+                // rate limiting prevents it:
+                // downloadNext()
             }
             if (!corrected) {
                 const path = combinations[key].imgs[index].path
