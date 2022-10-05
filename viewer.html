@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+    <meta charset = "UTF-8">
+    <title>Stable Diffusion Study</title>
+    <script>
+        'use strict'
+
+        function getE(id) {
+            return document.getElementById(id)
+        }
+
+        const names = [
+            { name: '((a raptor))', key: 'a' },
+            { name: 'A man', key: 'b' },
+            { name: 'A woman', key: 'c' },
+            { name: 'Alan Rickman', key: 'ar' },
+            { name: 'Albert Einstein', key: 'e' },
+            { name: 'Alfre Woodard', key: 'aw' },
+            { name: 'Amber Heard', key: 'am' },
+            { name: 'Andrew Garfield', key: 'ag' },
+            { name: 'Anthony Hopkins', key: 'an' },
+            { name: 'Aretha Franklin', key: 'af' },
+            { name: 'Arnold Schwarzenegger', key: 'as' },
+            { name: 'Aziz Ansari', key: 'aa' },
+            { name: 'Ben Affleck', key: 'ba' },
+            { name: 'Ben Kingsley', key: 'bk' },
+            { name: 'Benedict Cumberbatch', key: 'bc' },
+            { name: 'Brian Cox', key: 'cox' },
+            { name: 'Bruce Lee', key: 'bl' },
+            { name: 'Bruce Willis', key: 'bw' },
+            { name: 'Bryan Cranston', key: 'br' },
+            { name: 'Christian Bale', key: 'cb' },
+            { name: 'Colin Firth', key: 'cf' },
+            { name: 'Daniel Radcliffe', key: 'dr' },
+            { name: 'Danny Trejo', key: 'dt' },
+            { name: 'David Hasselhoff', key: 'dh' },
+            { name: 'David Tennant', key: 'd' },
+            { name: 'Denzel Washington', key: 'dw' },
+            { name: 'Dichen Lachman', key: 'dl' },
+            { name: 'Dwayne Johnson', key: 'dj' },
+            { name: 'Elizabeth Olsen', key: 'eo' },
+            { name: 'Emma Watson', key: 'ew' },
+            { name: 'Halle Berry', key: 'hb' },
+            { name: 'Henry Cavill', key: 'hc' },
+            { name: 'Idris Elba', key: 'ie' },
+            { name: 'Jack Black', key: 'jb' },
+            { name: 'Jackie Chan', key: 'jc' },
+            { name: 'James Hong', key: 'jh' },
+            { name: 'Jason Momoa', key: 'jm' },
+            { name: 'Jodie Foster', key: 'jf' },
+            { name: 'Johnny Depp', key: 'jd' },
+            { name: 'Julia Roberts', key: 'jr' },
+            { name: 'Kate McKinnon', key: 'km' },
+            { name: 'Keanu Reeves', key: 'kr' },
+            { name: 'Kevin Hart', key: 'kh' },
+            { name: 'Laurence Fishburne', key: 'lf' },
+            { name: 'Lucy Liu', key: 'll' },
+            { name: 'Meryl Streep', key: 'ms' },
+            { name: 'Michael Keaton', key: 'mk' },
+            { name: 'Michael Sheen', key: 'mi' },
+            { name: 'Michelle Rodriguez', key: 'mr' },
+            { name: 'Michelle Yeoh', key: 'my' },
+            { name: 'Morgan Freeman', key: 'mf' },
+            { name: 'Naveen Andrews', key: 'na' },
+            { name: 'Nick Offerman', key: 'no' },
+            { name: 'Park Bom', key: 'pb' },
+            { name: 'Penelope Cruz', key: 'pc' },
+            { name: 'Rajinikanth', key: 'r' },
+            { name: 'Robin Williams', key: 'rw' },
+            { name: 'Sarah Michelle Gellar', key: 'smg' },
+            { name: 'Sarita Choudhury', key: 'sc' },
+            { name: 'Scarlett Johansson', key: 'sj' },
+            { name: 'Selena Gomez', key: 'sg' },
+            { name: 'Shohreh Aghdashloo', key: 'sa' },
+            { name: 'Sigourney Weaver', key: 'sw' },
+            { name: 'Taron Egerton', key: 'te' },
+            { name: 'Tilda Swinton', key: 'ts' },
+            { name: 'Tim Curry', key: 'tim' },
+            { name: 'Tom Holland', key: 'th' },
+            { name: 'Walter White', key: 'ww' },
+            { name: 'Zendaya', key: 'z' },
+            { name: '{empty}', key: 'nil' }
+        ]
+
+        const situ = [
+            { name: 'as a bounty hunter', key: 'bh' },
+            { name: 'as a cyborg', key: 'cg' },
+            { name: 'as a jedi in Star Wars', key: 'j' },
+            { name: 'as a lego character', key: 'l' },
+            { name: 'as a mandalorian', key: 'ma' },
+            { name: 'as a muppet', key: 'mu' },
+            { name: 'as a north korean soldier', key: 'nk' },
+            { name: 'as a red shirt in Star Trek', key: 'rs' },
+            { name: 'as a robot', key: 'r' },
+            { name: 'as a Saiyan', key: 's' },
+            { name: 'as an elf in Lord of the Rings', key: 'elf' },
+            { name: 'as an english queen guard', key: 'q' },
+            { name: 'as Batman', key: 'b' },
+            { name: 'as Dracula', key: 'd' },
+            { name: 'as Peter Pan', key: 'pp' },
+            { name: 'as Robin Hood', key: 'rh' },
+            { name: 'as Sherlock Holmes', key: 'sh' },
+            { name: 'as Superman', key: 'sm' },
+            { name: 'as the Joker', key: 'jk' },
+            { name: 'as Thor', key: 't' },
+            { name: 'as Venom', key: 'v' },
+            { name: 'by Akira Toriyama', key: 'at' },
+            { name: 'by Picasso', key: 'p' },
+            { name: 'by Rembrandt', key: 're' },
+            { name: 'by Todd McFarlane', key: 'tm' },
+            { name: 'by Vincent van Gogh', key: 'vg' },
+            { name: 'in Aliens (1986)', key: 'a' },
+            { name: 'in Attack on Titan', key: 'aot' },
+            { name: 'in Avatar', key: 'av' },
+            { name: 'in Battlestar Galactica', key: 'bsg' },
+            { name: 'in Big Hero 6', key: 'bh6' },
+            { name: 'in Bioshock', key: 'bs' },
+            { name: 'in Blade Runner', key: 'br' },
+            { name: 'in Castlevania', key: 'c' },
+            { name: 'in Code Vein', key: 'cv' },
+            { name: 'in Crash Bandicoot', key: 'cb' },
+            { name: 'in Dark Crystal', key: 'dc' },
+            { name: 'in Doctor Who', key: 'dw' },
+            { name: 'in Game of Thrones', key: 'got' },
+            { name: 'in Ghost in the Shell', key: 'gits' },
+            { name: 'in God of War', key: 'gow' },
+            { name: 'in GTA5', key: 'gta' },
+            { name: 'in Half-Life', key: 'hl' },
+            { name: 'in Halo', key: 'h' },
+            { name: 'in Hunger Games', key: 'hg' },
+            { name: 'in Indiana Jones', key: 'ij' },
+            { name: 'in Jurassic Park', key: 'jp' },
+            { name: 'in Kingdom Hearts', key: 'kh' },
+            { name: 'in Legend of Zelda', key: 'z' },
+            { name: 'in Little House on the Prairie', key: 'lh' },
+            { name: 'in Magic the Gathering', key: 'mtg' },
+            { name: 'in Minecraft', key: 'mc' },
+            { name: 'in Mortal Kombat', key: 'mk' },
+            { name: 'in My Hero Academia', key: 'mha' },
+            { name: 'in Nier Automata', key: 'na' },
+            { name: 'in Once Upon a Time in the West', key: 'o' },
+            { name: 'in Ratchet and Clank', key: 'rc' },
+            { name: 'in Robocop', key: 'rob' },
+            { name: 'in Starship Trooper', key: 'st' },
+            { name: 'in Tarzan', key: 'tz' },
+            { name: 'in Teenage Mutant Ninja Turtles', key: 'tmnt' },
+            { name: 'in The Matrix (1999)', key: 'mat' },
+            { name: 'in The Neverending Story', key: 'end' },
+            { name: 'in The Rocky Horror Picture Show', key: 'rhps' },
+            { name: 'in The Walking Dead', key: 'wd' },
+            { name: 'in Total Recall', key: 'tr' },
+            { name: 'in Tron', key: 'to' },
+            { name: 'piloting the Eva-01', key: 'eva' },
+            { name: 'vs Predator', key: 'pr' },
+            { name: '{empty}', key: 'nil' }
+        ]
+
+        let combinations = {}
+        let downloaded = 0
+        let totalImages = 0
+        let downloadSlots = 16
+        let downloadName = 0
+        let downloadSitu = 0
+        let downloadIndex = 0
+        let downloadCorrected = false
+        let downloadSmol = false
+
+        function updateDownloadStatus() {
+            const percent = Math.round(1000 * downloaded / totalImages) / 10
+            getE('counter').innerHTML = `${percent}% - ${downloaded}`
+        }
+
+        function downloadNext() {
+            if (downloadSlots <= 0) return false
+            const key = `${names[downloadName].key}-${situ[downloadSitu].key}`
+            downloadImage(key, downloadIndex, downloadCorrected, downloadSmol)
+            if (downloadCorrected) {
+                if (downloadSmol) {
+                    downloadSmol = false
+                    downloadCorrected = false
+                    downloadIndex++
+                    if (downloadIndex >= 16) {
+                        downloadIndex = 0
+                        downloadSitu++
+                        if (downloadSitu >= situ.length) {
+                            downloadSitu = 0
+                            downloadName++
+                            if (downloadName >= names.length) {
+                                return false;
+                            }
+                        }
+                    }
+                } else {
+                    downloadSmol = true
+                }
+            } else {
+                downloadCorrected = true
+            }
+            return true
+        }
+
+        function downloadImage(key, index, corrected, smol) {
+            if (!corrected && !smol && combinations[key].imgs[index].downloading) {
+                return
+            }
+            if (corrected && !smol && combinations[key].imgsCorrected[index].downloading) {
+                return
+            }
+            if (!corrected && smol && combinations[key].imgs[index].downloadingSmol) {
+                return
+            }
+            if (corrected && smol && combinations[key].imgsCorrected[index].downloadingSmol) {
+                return
+            }
+            const onload = function() {
+                downloaded++
+                downloadSlots++
+                updateDownloadStatus()
+                downloadNext()
+            }
+            if (!corrected) {
+                const path = combinations[key].imgs[index].path
+                if (smol) {
+                    combinations[key].imgs[index].downloadingSmol = true
+                    combinations[key].imgs[index].imgSmol.onload = onload
+                    combinations[key].imgs[index].imgSmol.onerror = onload
+                    combinations[key].imgs[index].imgSmol.src = path
+                } else {
+                    combinations[key].imgs[index].downloading = true
+                    combinations[key].imgs[index].img.onload = onload
+                    combinations[key].imgs[index].img.onerror = onload
+                    combinations[key].imgs[index].img.src = path
+                }
+            } else {
+                const path = combinations[key].imgsCorrected[index].path
+                if (smol) {
+                    combinations[key].imgsCorrected[index].downloadingSmol = true
+                    combinations[key].imgsCorrected[index].imgSmol.onload = onload
+                    combinations[key].imgsCorrected[index].imgSmol.onerror = onload
+                    combinations[key].imgsCorrected[index].imgSmol.src = path
+                } else {
+                    combinations[key].imgsCorrected[index].downloading = true
+                    combinations[key].imgsCorrected[index].img.onload = onload
+                    combinations[key].imgsCorrected[index].img.onerror = onload
+                    combinations[key].imgsCorrected[index].img.src = path
+                }
+            }
+            downloadSlots--
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-family: "Helvetica Neue", Helvetica, Arial, Sans-Serif;
+            font-size: 1em;
+            background: #f9fcfc;
+            color: #222222;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        a {
+            outline: none;
+        }
+
+        a:link, a:visited {
+            color: #168fad;
+            text-decoration: none;
+        }
+
+        .selector {
+            display: inline-block;
+            margin: 0.5em;
+            padding: 0.5em;
+            border: 1px solid #168fad;
+            border-radius: 0.5em;
+            cursor: pointer;
+        }
+
+        .selector .unselected {
+            color: #aaaaaa;
+        }
+
+        .sameline {
+            display: flex;
+        }
+
+        .sameline .selected {
+            padding-left: 0.5em;
+        }
+
+        .sameline .unselected {
+            padding-left: 0.5em;
+        }
+
+        #viewport {
+            position: fixed;
+            top: 0;
+            right: 0;
+            margin: 0.5em;
+            padding: 0.5em;
+        }
+    </style>
+</head>
+<body>
+    <div id = "extra"></div>
+    <div class = "sameline">
+        <div id = "name-selector" class = "selector"></div>
+        <div id = "situ-selector" class = "selector"></div>
+    </div>
+    <div id = "viewport">
+        <div id = "bottomvp">
+            <input type = "checkbox" id = "corrected" onClick = "displayImage()">Corrected</input>
+            <div id = "seed-selector" class = "selector sameline"></div>
+        </div>
+    </div>
+    <div class = "sameline"><div id = "counter"></div> / <div id = "totalImages"></div></div>
+    <script>
+        'use strict'
+
+        function displayImage() {
+            let vp = getE('viewport')
+            while (vp.firstChild) {
+                if (vp.firstChild.id === 'bottomvp') break
+                vp.removeChild(vp.firstChild);
+            }
+            let name = getE('name-selector').firstChild
+            let nameId = 'nil'
+            while (name) {
+                if (name.className === 'selected') {
+                    nameId = name.id
+                    break
+                }
+                name = name.nextSibling
+            }
+            let situ = getE('situ-selector').firstChild
+            let situId = 'nil'
+            while (situ) {
+                if (situ.className === 'selected') {
+                    situId = situ.id
+                    break
+                }
+                situ = situ.nextSibling
+            }
+            let seed = getE('seed-selector').firstChild
+            let seedId = 0
+            while (seed) {
+                if (seed.className === 'selected') {
+                    break
+                }
+                seedId++
+                seed = seed.nextSibling
+            }
+            if (seedId >= 16) {
+                seedId = 'grid'
+            }
+            let key = `${nameId}-${situId}`
+            let c = getE('corrected')
+            let onclick = seed => {
+                if (window.event.ctrlKey) {
+                    toggleCorrected()
+                } else {
+                    selectSeed(seed)
+                }
+            }
+            if (c.checked) {
+                window.location.hash = `#c-${key}-${seedId}`
+                if (seedId === 'grid') {
+                    for (let y = 3; y >= 0; y--) {
+                        const div = document.createElement('div')
+                        vp.prepend(div)
+                        for (let x = 3; x >= 0; x--) {
+                            let i = y * 4 + x;
+                            downloadImage(key, i, true, true)
+                            combinations[key].imgsCorrected[i].imgSmol.onclick = () => { onclick(i) }
+                            div.prepend(combinations[key].imgsCorrected[i].imgSmol)
+                        }
+                    }
+                } else {
+                    downloadImage(key, seedId, true, false)
+                    combinations[key].imgsCorrected[seedId].img.onclick = () => { onclick(16) }
+                    vp.prepend(combinations[key].imgsCorrected[seedId].img)
+                }
+            } else {
+                window.location.hash = `#o-${key}-${seedId}`
+                if (seedId === 'grid') {
+                    for (let y = 3; y >= 0; y--) {
+                        const div = document.createElement('div')
+                        vp.prepend(div)
+                        for (let x = 3; x >= 0; x--) {
+                            let i = y * 4 + x;
+                            downloadImage(key, i, false, true)
+                            combinations[key].imgs[i].imgSmol.onclick = () => { onclick(i) }
+                            div.prepend(combinations[key].imgs[i].imgSmol)
+                        }
+                    }
+                } else {
+                    downloadImage(key, seedId, false, false)
+                    combinations[key].imgs[seedId].img.onclick = () => { onclick(16) }
+                    vp.prepend(combinations[key].imgs[seedId].img)
+                }
+            }
+        }
+
+        function selectName(name) {
+            let selector = getE('name-selector')
+            let child = selector.firstChild
+            let found = false
+            while (child) {
+                if (child.id === name) {
+                    child.className = 'selected'
+                    found = true
+                } else {
+                    child.className = 'unselected'
+                }
+                child = child.nextSibling
+            }
+            if (found) {
+                displayImage()
+            } else {
+                selectName('nil')
+            }
+        }
+
+        function selectSitu(situ) {
+            let selector = getE('situ-selector')
+            let child = selector.firstChild
+            let found = false
+            while (child) {
+                if (child.id === situ) {
+                    child.className = 'selected'
+                    found = true
+                } else {
+                    child.className = 'unselected'
+                }
+                child = child.nextSibling
+            }
+            if (found) {
+                displayImage()
+            } else {
+                selectSitu('nil')
+            }
+        }
+
+        function selectSeed(seed) {
+            if (seed === 'grid') {
+                seed = 16
+            }
+            let selector = getE('seed-selector')
+            let child = selector.firstChild
+            let found = false
+            for (let i = 0; i < 17; i++) {
+                if (i === seed) {
+                    child.className = 'selected'
+                    found = true
+                } else {
+                    child.className = 'unselected'
+                }
+                child = child.nextSibling
+            }
+            if (found) {
+                displayImage()
+            } else {
+                selectSeed(16)
+            }
+        }
+
+        function toggleCorrected() {
+            let c = getE('corrected')
+            c.checked = !c.checked
+            displayImage()
+        }
+
+        let nameX
+        let situX
+        let seedY
+
+        function stopDrag() {
+            document.onmouseup = null
+            document.onmousemove = null
+        }
+
+        function inRect(rect, x, y) {
+            return x >= rect.left && x < rect.right && y >= rect.top && y < rect.bottom
+        }
+
+        function nameDrag(e) {
+            e = e || window.event
+            e.preventDefault()
+            let y = e.clientY
+            let selector = getE('name-selector')
+            let child = selector.firstChild
+            while (child) {
+                let rect = child.getBoundingClientRect()
+                if (inRect(rect, nameX, y)) {
+                    child.className = 'selected'
+                } else {
+                    child.className = 'unselected'
+                }
+                child = child.nextSibling
+            }
+            displayImage()
+        }
+
+        function situDrag(e) {
+            e = e || window.event
+            e.preventDefault()
+            let y = e.clientY
+            let selector = getE('situ-selector')
+            let child = selector.firstChild
+            while (child) {
+                let rect = child.getBoundingClientRect()
+                if (inRect(rect, situX, y)) {
+                    child.className = 'selected'
+                } else {
+                    child.className = 'unselected'
+                }
+                child = child.nextSibling
+            }
+            displayImage()
+        }
+
+        function seedDrag(e) {
+            e = e || window.event
+            e.preventDefault()
+            let x = e.clientX
+            let selector = getE('seed-selector')
+            let child = selector.firstChild
+            while (child) {
+                let rect = child.getBoundingClientRect()
+                if (inRect(rect, x, seedY)) {
+                    child.className = 'selected'
+                } else {
+                    child.className = 'unselected'
+                }
+                child = child.nextSibling
+            }
+            displayImage()
+        }
+
+        function startDragName(e) {
+            e = e || window.event
+            e.preventDefault()
+            nameX = e.clientX
+            document.onmouseup = stopDrag
+            document.onmousemove = nameDrag
+        }
+
+        function startDragSitu(e) {
+            e = e || window.event
+            e.preventDefault()
+            situX = e.clientX
+            document.onmouseup = stopDrag
+            document.onmousemove = situDrag
+        }
+
+        function startDragSeed(e) {
+            e = e || window.event
+            e.preventDefault()
+            seedY = e.clientY
+            document.onmouseup = stopDrag
+            document.onmousemove = seedDrag
+        }
+
+        let e
+        let nameCheck = {}
+        let situCheck = {}
+        e = getE('name-selector')
+        for (let i = 0; i < names.length; i++) {
+            const key = names[i].key
+            const name = names[i].name
+            nameCheck[key] = ++nameCheck[key] || 1
+            if (nameCheck[key] > 1) {
+                console.log('duplicate name key: ' + key)
+            }
+            const div = document.createElement('div')
+            div.className = 'unselected';
+            div.id = key
+            div.innerHTML = name
+            div.onclick = () => { selectName(key) }
+            div.onmousedown = startDragName
+            e.appendChild(div)
+        }
+        e = getE('situ-selector')
+        for (let i = 0; i < situ.length; i++) {
+            const key = situ[i].key
+            const name = situ[i].name
+            situCheck[key] = ++situCheck[key] || 1
+            if (situCheck[key] > 1) {
+                console.log('duplicate situ key: ' + key)
+            }
+            const div = document.createElement('div')
+            div.className = 'unselected';
+            div.id = key
+            div.innerHTML = name
+            div.onclick = () => { selectSitu(key) }
+            div.onmousedown = startDragSitu
+            e.appendChild(div)
+        }
+        for (let i = 0; i < names.length; i++) {
+            for (let j = 0; j < situ.length; j++) {
+                const key = `${names[i].key}-${situ[j].key}`
+                combinations[key] = {
+                    imgs: [],
+                    imgsCorrected: []
+                }
+                for (let k = 0; k < 16; k++) {
+                    const path = `${names[i].key}/${k + 42}-${situ[j].key}.jpeg`
+                    combinations[key].imgs[k] = {
+                        path: 'o/' + path,
+                        downloading: false,
+                        downloadingSmol: false,
+                        img: new Image(512, 512),
+                        imgSmol: new Image(128, 128),
+                    }
+                    combinations[key].imgsCorrected[k] = {
+                        path: 'c/' + path,
+                        downloading: false,
+                        downloadingSmol: false,
+                        img: new Image(512, 512),
+                        imgSmol: new Image(128, 128)
+                    }
+                }
+                totalImages += 16 * 2 * 2
+            }
+        }
+        e = getE('seed-selector')
+        for (let i = 0; i < 16; i++) {
+            const div = document.createElement('div')
+            div.className = 'unselected';
+            div.id = i
+            div.innerHTML = i + 42
+            div.onclick = () => { selectSeed(i) }
+            div.onmousedown = startDragSeed
+            e.appendChild(div)
+        }
+        const div = document.createElement('div')
+        div.className = 'unselected';
+        div.id = 'grid'
+        div.innerHTML = 'grid'
+        div.onclick = () => { selectSeed(16) }
+        div.onmousedown = startDragSeed
+        e.appendChild(div)
+        e = getE('totalImages')
+        e.innerHTML = totalImages
+        updateDownloadStatus()
+        while (downloadNext()) {}
+        let initialName = 'nil'
+        let initialSitu = 'nil'
+        let initialSeed = 16
+        if (window.location.hash) {
+            const hash = window.location.hash.substring(1)
+            const parts = hash.split('-')
+            if (parts.length === 4) {
+                getE('corrected').checked = parts[0] === 'c'
+                initialName = parts[1]
+                initialSitu = parts[2]
+                if (parts[3] === 'grid') {
+                    initialSeed = 16
+                } else {
+                    initialSeed = parseInt(parts[3])
+                }
+            }
+        }
+        selectName(initialName)
+        selectSitu(initialSitu)
+        selectSeed(initialSeed)
+        displayImage()
+    </script>
+</body>
+</html>
