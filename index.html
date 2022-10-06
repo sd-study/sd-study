@@ -170,7 +170,7 @@
     back to the full grid of 16. Holding CTRL when clicking will toggle the face restoration mode.
     </p>
     <p>
-    Zone 4 is mostly there for status, but is also interactive. Dragging through the list of numbers will quickly flickers through the seeds.
+    Zone 4 is mostly there for status, but is also interactive. Dragging through the list of numbers will quickly flicker through the seeds.
     </p>
     <p>
     Images are loaded lazily when they are needed, as there's hundreds of thousands of them, and are cached in the browser for the duration
@@ -192,19 +192,21 @@
     </p>
     <p>
     The point of these observations isn't necessarily to point out what the model can and cannot do. These are usually well known already,
-    and are easily observed. Here, we will try to rather focus on the cross examination of various prompts across multiple names and subjects.
+    and are easily observed, even within this study. Here, we will try to rather focus on the cross examination of various prompts across
+    multiple names and subjects. The flickering feature of the viewer helps with this sort of cross examination.
     </p>
     <p>
     The first obvious property is that celebrity names have different internal "weight". When combined with a situation, some names will
     converge less than other towards a mix between the name and the situation, and instead will just produce pictures of the celebrity.
-    For instance, most pictures generated using the name "Aretha Franklin" or "Albert Einstein" won't mix properly with situations like
+    For instance, most pictures generated using the name "Aretha Franklin" or "Albert Einstein" will never mix properly with situations like
     "as a robot": <a href = "viewer.html#o-af-r-grid" target = "_blank">Aretha Franklin as a robot</a>. But using
     <a href = "viewer.html#o-cb-r-grid" target = "_blank">Christian Bale as a robot</a> will sometimes produce a mix between the two.
     </p>
     <p>
     Additionally, some celebrities will come sharper and more precise than others. Some others will be less recognizable or more uncanny.
-    For example, <a href = "viewer.html#o-dr-nil-grid" target = "_blank">Daniel Radcliffe</a> has a weird jawline, and
-    <a href = "viewer.html#o-no-nil-grid" target = "_blank">Nick Offerman</a> often looks a bit plastic.
+    For example, <a href = "viewer.html#o-dr-nil-grid" target = "_blank">Daniel Radcliffe</a> has a weird jawline, <a href = "viewer.html#o-sw-jp-15"
+    target = "_blank">Sigourney Weaver</a> often comes out with weird, googly eyes, and <a href = "viewer.html#o-no-nil-grid"
+    target = "_blank">Nick Offerman</a> often looks a bit plastic.
     </p>
     <p>
     One potential hypothesis is that the model is learning to recognize faces, and that the more recognizable the face is, by having a
@@ -212,6 +214,9 @@
     This would explain why some celebrities are more recognizable than others, and why some celebrities will be more precise than others:
     there are a lot of pictures and memes online of Albert Einstein using the same well known picture of him, whereas pictures of Daniel
     Radcliffe will be varied in shape as there are lots of pictures of him available throughout his life since he was a child actor.
+    There are lots of pretty varied pictures of Nick Offerman online with him featuring a pretty large, white beard, or only a moustache,
+    from his role in Park and Recreations. Sigourney Weaver has been featured online side by side with her avatar form from the eponymous
+    movie from James Cameron, and the proportion of the eyes on the blue-skinned aliens versus their skull is bigger than that of humans.
     Some celebrities who went through radical body shape changes, such as gaining or losing a lot of weight, will often come out as
     very grotesque and even humiliating. Some names have been removed from this study as a result of this.
     </p>
@@ -251,7 +256,8 @@
     is that the model has been trained from a really badly curated list of images, such as typical tabloids with clickbait titles, such as
     "The 10 most bizarre celebrity lookalikes", or
     <a href = "https://www.bbc.com/news/entertainment-arts-45835324" target = "_blank">"Tilda Swinton admits playing old man in Suspiria film hoax"</a>.
-    The model, having learned to recognize these images as a whole, is simply trying to reproduce them.
+    The model, having learned to recognize these images as a whole, is simply trying to reproduce them. Note that in the last link, the
+    picture contained in the page will featue exactly the sort of side-by-side picture with the solid white line in between.
     </p>
     <p>
     Still on the quality of the training set, it is very obvious that it included <a href = "viewer#o-e-pr-grid" target = "_blank">trashy meme pictures</a>
@@ -285,7 +291,9 @@
     It is obvious that most of the images were generated, from the uncanny rendering, but a few are looking very convincing without
     a lot of extra effort. By fine tuning the model using tools like DreamBooth or textual inversion, by refining the prompts, and by
     post processing the images, it is possible to generate images that look like they were taken by a professional photographer with
-    less effort than it would take to create the same images otherwise.
+    less effort than it would take to create the same images otherwise. The fact the model seems to have been trained on poorly
+    curated data means more effort is required to produce a proper output, but model refining seems to produce good results at a low
+    cost to the user.
     </p>
     <p>
     All in all, tools like Stable Diffusion are just that: tools. Used wisely, they can accelerate the work of a professional artist
