@@ -276,11 +276,21 @@
     not be taken too seriously.
     </p>
     <p>
-    The genie of machine learning image generation is out of the bottle, and we need to make peace with the fact that people are going
-    to be able to download a model and generate images of celebrities in any situation they want. Technically, one way to fight this is to
-    make sure that the training set is curated properly, and that the model is not being used for malicious purposes, but given how the
-    model is already out there, it's probably not doable. We need to be prepared for the upcoming onslaught of fake celebrity images,
-    and the potential for abuse of this technology.
+    Now, for what it's worth, the genie of machine learning image generation is out of the bottle, and we need to make peace with the
+    fact that people are able to download a model and generate any images in any situation they want, however grotesque or crass.
+    Technically, one way to fight this is to make sure that the training set is curated properly, but given how the model is already
+    out there, it's obviously not doable.
+    </p>
+    <p>
+    It is obvious that most of the images were generated, from the uncanny rendering, but a few are looking very convincing without
+    a lot of extra effort. By fine tuning the model using tools like DreamBooth or textual inversion, by refining the prompts, and by
+    post processing the images, it is possible to generate images that look like they were taken by a professional photographer with
+    less effort than it would take to create the same images otherwise.
+    </p>
+    <p>
+    All in all, tools like Stable Diffusion are just that: tools. Used wisely, they can accelerate the work of a professional artist
+    seeking to generate certain categories of imagery. Used poorly, they can be used to generate images that are not only not useful,
+    but also harmful. It is up to the user to decide how to use them.
     </p>
     </body>
     <script>
@@ -290,7 +300,7 @@
             }
         }
         function parseElement(element) {
-            if (element.tagName == "A") {
+            if (element.tagName === "A") {
                 fixLink(element)
             }
             for (var i = 0; i < element.children.length; i++) {
