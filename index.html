@@ -100,15 +100,15 @@
     <h1>Stable Diffusion: A Study<br/><div class = "date">October 2022</div></h1>
     <h2>Disclaimer</h2>
     <p>
-    All of the contents of this repository and study have been entirely generated using Stable Diffusion's 1.4 model.
-    Strictly no edition took place, and as a result, strictly no copyright is being held as the source of the contents
-    has been purely machine generated without human intervention. This also means that all of the contents should fall
-    into the fair use doctrine.
+    The contents of this repository and study have been generated using the Stable Diffusion 1.4 model.
+    Strictly no editing took place, and as a result, no copyright is being held since the source data
+    was entirely machine generated, without human intervention.
+    As such the contents should fall under the fair use doctrine.
     </p>
     <p>
     Furthermore, the viewer is advised that some contents might be a bit shocking due to the current state of the art of
     deep learning image generation. A lot of the results will feature extra limbs, missing limbs, noodle fingers, extra
-    eyes, extra mouths, and other strange features.
+    eyes, extra mouths, and other such strange features.
     </p>
     <p>
     Also, very ironically, both this current text, and the source code of the viewer, have been written with the extensive
@@ -117,38 +117,37 @@
 
     <h2>Context</h2>
     <p>
-    The proliferation of text-to-image deep learning models have accelerated the growth of the so-called "AI art".
+    The proliferation of text-to-image deep learning models have accelerated the growth of so-called "AI art".
     The leak of Stable Diffusion's models, <a href = "https://bakztfuture.substack.com/p/statement-on-stable-diffusion" target = "_blank">
-    although controversial</a>, has brought the attention of the public to the topic of AI art.
+    although controversial</a>, has brought public attention to the topic of AI art.
     </p>
     <p>
-    Many different software started cropping up, allowing virtually anybody to run Stable Diffusion's models on their own computer.
+    A variety of software has started cropping up, allowing virtually anybody to run Stable Diffusion's models on their own computer.
     While playing with <a href = "https://github.com/AUTOMATIC1111/stable-diffusion-webui" target = "_blank">one of these</a>, it appeared
     some patterns were emerging.
     <p>
     </p>
-    The idea of doing a study to try and better see these patterns was formed, and executed.
+    This study aims to explore these patterns, and to provide a better understanding of the current state of the art of text-to-image
     </p>
 
     <h2>Methodology</h2>
     <p>
     Using natural language-style queries led to many prompts in the form of "Brad Pitt as Willy Wonka", "Jennifer Aniston in The Shining",
-    or "Kim Kardashian by Salvador Dali". From this line of prompts, the idea to form a matrix of prompts becomes natural.
+    or "Kim Kardashian by Salvador Dali". From this, a matrix of prompts is the next logical conclusion.
     </p>
     <p>
-    The matrix is formed by taking the 70 "names" and 70 "situations", and creating the 4900 prompts from the full cross product. For
-    each prompt, 16 images are generated using the same 16 seeds, from seed 42 to seed 57, and the 1.4 model of Stable Diffusion.
-    The rest of the settings are: Classifier-Free Guidance of 7, 50 steps, using the k-euler a sampler. Each generated image is
-    also run through the GFPGAN face restoration model, and the before and after pictures are saved.
+    The matrix is formed by taking the 70 "names" and 70 "situations", and creating the 4900 prompts from the full cross product.
+    Each prompt comprises 16 images, using the same 16 seeds (seeds 42 to 57), and the 1.4 model.
+    The rest of the settings are: Classifier-Free Guidance of 7, 50 steps, using the k-euler a sampler.
+    Each generated image is also run through the GFPGAN face restoration model, and the before and after pictures are saved.
     </p>
     <p>
-    Rendering took place over the course of slightly less than 3 days, using a single RTX3090 GPU. All of the generated PNGs are
-    occupying 57GB of disc space, and for the purpose of saving space and bandwidth, they were all compressed to jpeg using a
-    quality of 85. The final size of all of the pictures is 5.7GB.
+    Rendering took just under 3 days, using a single RTX3090 GPU.
+    The generated PNGs are around 57GB in size, so to save space and bandwidth, were compressed to JPEG at 85% quality.
+    The final compressed size is 5.7GB.
     </p>
     <p>
-    Running file deduplications software yields a lot of duplicated entries, all of them when the face restoration model hasn't been
-    able to do its job.
+    Note: many duplicate entires were generated, all of them from cases where the face restoration model hasn't been successful.
     </p>
 
     <h2>The viewer</h2>
@@ -160,11 +159,13 @@
     The viewer is divided into four zones: <br/><img src = "doc/viewer-zones.png" alt = "Viewer Zones" width = "100%"/>
     </p>
     <p>
-    Zone 1 is the list of names. Possible interactions are clicking to select a name, or dragging to quickly flicker several names.
+    Zone 1 is the list of names.
     </p>
     <p>
-    Zone 2 is the list of situations. Possible interactions are clicking to select a situation, or dragging to quickly flicker several situations.
+    Zone 2 is the list of situations.
     </p>
+    <p>
+        Note: you may click/tap and drag to quickly flick through either list of entries.
     <p>
     Zone 3 is the images. When in grid mode, clicking an image will select this one seed. When in single image mode, clicking an image will go
     back to the full grid of 16. Holding CTRL when clicking will toggle the face restoration mode.
@@ -173,127 +174,130 @@
     Zone 4 is mostly there for status, but is also interactive. Dragging through the list of numbers will quickly flicker through the seeds.
     </p>
     <p>
-    Images are loaded lazily when they are needed, as there's hundreds of thousands of them, and are cached in the browser for the duration
-    of the session. Trying to flicker through images the first time may take a while, but subsequent flickering should be instantaneous. The
-    bottom of the screen will display the amount of images that have been loaded, and the total amount of images which may be loaded.
-    Remember that the total size of the images is 5.7GB, so be mindful of memory usage.
+    Images are loaded lazily (as and when required), as there are hundreds of thousands of them.
+    As the browser caches them for subsequent viewing, repeat loads should be instantaneous.
+    The bottom of the screen will display the number of images that have been loaded, and the total number of images which may be loaded.
+    Note that the total size of the images is 5.7GB, so be mindful of memory usage.
     </p>
     <p>
-    Last but not least, the viewer will emit anchors when interacting with it, and thus creates "permalinks" automatically that can then
-    be used to share a specific view of the study.
+    Last but not least, the viewer generates "permalink" html anchors when interacting with it, so links to the current view may be shared with others.
     </p>
 
     <h2>Observations</h2>
     <p>
-    Typically, such a paragraph should be named "Results" or "Conclusions", but being only a neophyte means that trying to offer any sort of
-    analysis or explanations, lest to fall prey of the <a href = "https://en.wikipedia.org/wiki/Pathetic_fallacy" target = "_blank">pathetic fallacy</a>,
-    or worse, the <a href = "https://en.wikipedia.org/wiki/Dunning%E2%80%93Kruger_effect" target = "_blank">Dunning-Kruger effect</a>, would
-    be ill advised. Some hypothesis might still be offered however, without actual means of verification.
+    Typically, such a paragraph might be named "Results" or "Conclusions", but as a neophyte, trying to offer any sort of
+    analysis or explanations runs the risk of falling prey to the <a href = "https://en.wikipedia.org/wiki/Pathetic_fallacy" target = "_blank">pathetic fallacy</a>,
+    or worse, the <a href = "https://en.wikipedia.org/wiki/Dunning%E2%80%93Kruger_effect" target = "_blank">Dunning-Kruger effect</a>.
+    Some hypothesis might still be offered however, without actual means of verification.
     </p>
     <p>
-    The point of these observations isn't necessarily to point out what the model can and cannot do. These are usually well known already,
+    The aim of these observations isn't necessarily to point out what the model can and cannot do. These are usually well known already,
     and are easily observed, even within this study. Here, we will try to rather focus on the cross examination of various prompts across
-    multiple names and subjects. The flickering feature of the viewer helps with this sort of cross examination.
+    multiple names and subjects. The "click & drag" flicker feature of the viewer helps with this sort of cross examination.
     </p>
     <p>
     The first obvious property is that celebrity names have different internal "weight". When combined with a situation, some names will
     converge less than other towards a mix between the name and the situation, and instead will just produce pictures of the celebrity.
-    For instance, most pictures generated using the name "Aretha Franklin" or "Albert Einstein" will never mix properly with situations like
+    For instance, most pictures generated using the name "Aretha Franklin" or "Albert Einstein" will never mix properly with situations such as
     "as a robot": <a href = "viewer.html#o-af-r-grid" target = "_blank">Aretha Franklin as a robot</a>. But using
-    <a href = "viewer.html#o-cb-r-grid" target = "_blank">Christian Bale as a robot</a> will sometimes produce a mix between the two.
+    <a href = "viewer.html#o-cb-r-grid" target = "_blank">Christian Bale as a robot</a> can produce a good mix.
     </p>
     <p>
-    Additionally, some celebrities will come sharper and more precise than others. Some others will be less recognizable or more uncanny.
-    For example, <a href = "viewer.html#o-dr-nil-grid" target = "_blank">Daniel Radcliffe</a> has a weird jawline, <a href = "viewer.html#o-sw-jp-15"
-    target = "_blank">Sigourney Weaver</a> often comes out with weird, googly eyes, and <a href = "viewer.html#o-no-nil-grid"
+    Additionally, some generated celebrity images are very sharp and precise, while others are much less recognizable or more uncanny.
+    For example, <a href = "viewer.html#o-dr-nil-grid" target = "_blank">Daniel Radcliffe</a> has an odd jawline, <a href = "viewer.html#o-sw-jp-15"
+    target = "_blank">Sigourney Weaver</a> often comes out with strange, googly eyes, and <a href = "viewer.html#o-no-nil-grid"
     target = "_blank">Nick Offerman</a> often looks a bit plastic.
     </p>
     <p>
-    One potential hypothesis is that the model is learning to recognize faces, and that the more recognizable the face is, by having a
-    large sample set that doesn't have many variations, the more accurate the model will be at generating this specific celebrity.
-    This would explain why some celebrities are more recognizable than others, and why some celebrities will be more precise than others:
-    there are a lot of pictures and memes online of Albert Einstein using the same well known picture of him, whereas pictures of Daniel
-    Radcliffe will be varied in shape as there are lots of pictures of him available throughout his life since he was a child actor.
-    There are lots of pretty varied pictures of Nick Offerman online with him featuring a pretty large, white beard, or only a moustache,
-    from his role in Park and Recreations. Sigourney Weaver has been featured online side by side with her avatar form from the eponymous
-    movie from James Cameron, and the proportion of the eyes on the blue-skinned aliens versus their skull is bigger than that of humans.
-    Some celebrities who went through radical body shape changes, such as gaining or losing a lot of weight, will often come out as
-    very grotesque and even humiliating. Some names have been removed from this study as a result of this.
+    One potential hypothesis is that the model is learning to recognize faces, and so the more recognizable the face is, 
+    (e.g. a large sample set with low variations), the more accurate the model will be at generating this specific celebrity face.
+    This would explain why some celebrities are more recognizable than others, and why some celebrities are more precise than others:
     </p>
     <p>
-    Some celebrities come up heavily skewed towards their iconic roles, filling the results with renders that can look like what
-    they are known for. For instance, <a href = "viewer.html#o-tim-nil-grid" target = "_blank">Tim Curry</a> will often produce
-    something that looks like a mix between his role as Pennywise the clown in It, and his role as Frank-N-Furter in The Rocky Horror Picture
-    Show. <a href = "viewer.html#o-th-tc-grid" target = "_blank">Tom Holland</a> will often produce something that looks like
-    Spider-Man, even in situations that aren't supposed to be remotely looking like Spider-Man, <a href="viewer.html#o-hc-cg-grid"
-    target = "_blank">Henry Cavill</a> will often produce something that looks like Superman, and <a href="viewer.html#o-bl-cg-grid"
-    target = "_blank">Bruce Lee</a> will often be featured in a fighting stance. Hopefully, using negative prompts, one ought to be
-    able to remove the influence of these iconic roles, and produce something that looks more like the celebrity themselves, but this
-    means that the user needs to be able to recognize the role that is influencing the render of the celebrity in order to negate it,
-    which is not always easy.
+    For example, there are many pictures and memes of Albert Einstein online, but sourced from a relatively small group of unique photos,
+    whereas pictures of Daniel Radcliffe span 2 decades of his life from childhood to adulthood, covering many roles and appearances.
+    Nick Offerman often appears with a large white beard, or only a moustache from his role on Parks and Recreations.
+    Sigourney weaver has been featured online side by side with her avatar from the eponymous movie by James Cameron, and so a large
+    proportion of her generated images feature the eyes of the blue-skinned aliens, and similar overall skull proportions.
+    Celebrities who have undergone radical body shape changes, such as gaining or losing a lot of weight, will often be depicted
+    in very grotesque or humiliating manners. Some names have been removed from this study as a result of this.
     </p>
     <p>
-    Another interesting aspect is that the same seed will tend to produce the same pose across completely different prompts. For example,
+    Some celebrities skew heavily towards their most iconic roles, filling the results with renders akin to those roles.
+    For instance, <a href = "viewer.html#o-tim-nil-grid" target = "_blank">"Tim Curry"</a> will often produce
+    results somewhere between his role as Pennywise the clown in It, and his role as Frank-N-Furter in The Rocky Horror Picture
+    Show. <a href = "viewer.html#o-th-tc-grid" target = "_blank">"Tom Holland"</a> will often produce results that resemble Spider-Man,
+    even in situations where he is not supposed to be a superhero.
+    <a href="viewer.html#o-hc-cg-grid" target = "_blank">"Henry Cavill"</a> will often produce results resembling Superman, and <a href="viewer.html#o-bl-cg-grid"
+    target = "_blank">"Bruce Lee"</a> will often be featured in a fighting stance.
+    It is hoped that, using negative prompts, one ought to be able to remove the influence of these iconic roles, and produce something that
+    looks more like the celebrity themselves.
+    This, however, means that the user needs to be able to recognize the influence of that role to negate it -- which is not always easy.
+    </p>
+    <p>
+    Another interesting aspect is that the same seed has a tendency to produce the same pose across completely different prompts. For example,
     on seed 44, <a href = "viewer.html#o-bl-bh-2" target = "_blank">Bruce Lee as a Bounty Hunter</a>,
     <a href = "viewer.html#o-bl-cg-2" target = "_blank">Bruce Lee as a Cyborg</a>,
     <a href = "viewer.html#o-bl-ma-2" target = "_blank">Bruce Lee as a Mandalorian</a>,
     <a href = "viewer.html#o-bl-bh6-2" target = "_blank">Bruce Lee in Big Hero 6</a>,
     <a href = "viewer.html#o-bl-c-2" target = "_blank">Bruce Lee in Castlevania</a>,
     <a href = "viewer.html#o-bl-gits-2" target = "_blank">Bruce Lee in Ghost in the Shell</a>, or even
-    <a href = "viewer.html#o-bl-mc-2" target = "_blank">Bruce Lee in Minecraft</a>, all present the same pose of him with his leg
-    kicking. Sometimes even across martial artists: <a href = "viewer.html#o-jc-sm-2" target = "_blank">Jackie Chan as Superman</a>.
+    <a href = "viewer.html#o-bl-mc-2" target = "_blank">Bruce Lee in Minecraft</a>, all produce the same pose, with his leg
+    kicking.
+    Sometimes even across martial artists: <a href = "viewer.html#o-jc-sm-2" target = "_blank">Jackie Chan as Superman</a>.
     Other similarities can be distinguished across different seeds, names, and situations, but the leg kick is a very obvious one.
-    Quickly flickering through images using the drag feature can help finding these similarities. This could potentially mean some
-    seeds could be used for completely different prompts to try and yield the same pose.
+    Quickly flicking through images using the drag feature can help in finding these similarities.
+    This suggests that some seeds could be cherry-picked to achieve desired poses for completely different prompts.
     </p>
     <p>
-    Now, a very bizarre observation is that the model will sometimes generate two pictures, separated by a white line. Often, the same
-    seed will produce this more often than others. For example, seed 55 does this on the <a href = "viewer.html#o-nil-nil-15" target = "_blank">fully empty prompt</a>.
-    Flickering through different combinations for this seed will yield more of this sort of renderings:
+    One bizarre observation is that the model will sometimes generate two individuals, separated by a white line for a single prompt.
+    Particular seeds tend to produce this behaviour more often than others. For example, seed 55 does this on the <a href = "viewer.html#o-nil-nil-15" target = "_blank">fully empty prompt</a>.
+    Flicking through different combinations for this seed will yield other such renderings:
     <a href = "viewer.html#o-nil-pr-15" target = "_blank">vs Predator</a>, <a href = "viewer.html#o-z-pr-15" target = "_blank">Zandaya vs Predator</a>,
     <a href = "viewer.html#o-th-dc-15" target = "_blank">Tom Holland in Dark Crystal</a>, <a href = "viewer.html#o-ts-mu-15" target = "_blank">
-    Tilda Swinton as a muppet</a>, etc. More rarely, it will generate something that looks like 3 pictures side by side. One hypothesis
-    is that the model has been trained from a really badly curated list of images, such as typical tabloids with clickbait titles, such as
+    Tilda Swinton as a muppet</a>, etc. More rarely, it will generate something that looks like 3 pictures side by side.
+    One hypothesis is that the model has been trained on a poorly curated list of images, such as tabloids with hyperbolic, clickbait titles:
     "The 10 most bizarre celebrity lookalikes", or
     <a href = "https://www.bbc.com/news/entertainment-arts-45835324" target = "_blank">"Tilda Swinton admits playing old man in Suspiria film hoax"</a>.
     The model, having learned to recognize these images as a whole, is simply trying to reproduce them. Note that in the last link, the
-    picture contained in the page will feature exactly the sort of side-by-side picture with the solid white line in between.
+    picture contained in the page features exactly this sort of side-by-side picture with a solid white line down the middle.
     </p>
     <p>
     Still on the quality of the training set, it is very obvious that it included <a href = "viewer#o-e-pr-grid" target = "_blank">trashy meme pictures</a>
-    that should've been excluded from the get go, possibly with very poor labeling. This means that a lot of the prompts need to be very
-    detailed, both in the positive and the negative sections, to make sure that none of these bad training images are included in the
-    final render.
+    with poor labeling, which should have been excluded from the start. This results in a lot of the prompts needing to be very
+    detailed, (for both the positive and negative inputs), to filter out the influence of such images in the final renders.
     </p>
     <p>
-    Finally, in the light of those potential deficiencies in the training set, another hypothesis is formed about why many of the generated
-    images are featuring human being cropped <a href = "viewer.html#o-ba-q-6" target = "_blank">below the neck</a> or <a href = "viewer.html#o-ag-b-6"
-    target = "_blank">even further</a>. If the model needed to be trained on 512x512, and the training set has been sloppily selected and
-    processed, then it is reasonable to imagine that images that were featured in portrait mode, taller than they are wide, were automatically
-    cropped to fit the 512x512 resolution, haphazardly cutting off the top. For example, Ben Affleck's iconic picture on the beach, being
-    taken in portait mode, would be roughly be cropped this way by an automatic process feeding pictures into the machine learning set:<br/>
+    Finally, in light of those potential deficiencies in the training set, another hypothesis is formed about why many of the generated
+    images feature humans cropped <a href = "viewer.html#o-ba-q-6" target = "_blank">below the neck</a> or <a href = "viewer.html#o-ag-b-6"
+    target = "_blank">even further</a>. If the model required training on 512x512px images, with sloppy processing and selection, then it is
+    reasonable to imagine that vertically-orientated "portrait" images were automatically cropped, haphazardly cutting off the top.
+    <br>
+    For example an automatic crop of Ben Affleck's iconic beach picture might result in such data being fed to the model.
+    <br/>
     <img src = "doc/automatic-crop.png" alt = "Viewer Zones"/>
     </p>
 
     <h2>Closing statement</h2>
     <p>
-    This study is completely informal, and was initiated mostly because the results looked really, really funny. Some images are very
-    wholesome, some really funny, but most are just boring. The author is not a machine learning scientist, and the results should
-    not be taken too seriously.
+    This is an informal study, undertaken mostly because some results are really, really funny.
+    Some images are very wholesome, some weird, but most are just boring.<br>
+    The author is a robot, but not a machine learning scientist, and so the results and conclusions outlined should not be taken too seriously.
     </p>
     <p>
-    Now, for what it's worth, the genie of machine learning image generation is out of the bottle, and we need to make peace with the
-    fact that people are able to download a model and generate any images in any situation they want, however grotesque or crass.
-    Technically, one way to fight this is to make sure that the training set is curated properly, but given how the model is already
-    out there, it's obviously not doable.
+    Now that the machine learning image generation genie is out of the bottle, we must make peace with the fact that it is trivial
+    for someone to download the model and generate images of any situation they want -- however grotesque or crass.
+    One way to fight this may be to ensure that the training set is properly curated, but given how the model is already widely available,
+    it may be too late.
     </p>
     <p>
-    It is obvious that most of the images were generated, from the uncanny rendering, but a few are looking very convincing without
-    a lot of extra effort. By fine tuning the model using tools like DreamBooth or textual inversion, by refining the prompts, and by
+    From the uncanny appearance of the generated images, it is clear that most of the images are AI renders.
+    A few though are very convincing without much extra effort. <br>
+    By fine tuning the model using tools like DreamBooth or textual inversion, by refining the prompts, and by
     post processing the images, it is possible to generate images that look like they were taken by a professional photographer with
-    less effort than it would take to create the same images otherwise. The fact the model seems to have been trained on poorly
-    curated data means more effort is required to produce a proper output, but model refining seems to produce good results at a low
-    cost to the user.
+    less effort than it would take to create them by traditional means.
+    The idea that the model may have been trained on poorly curated data does suggest that more overall effort is required,
+    but the bar to entry is still very low, and generating convincing results is fairly trivial.
     </p>
     <p>
     All in all, tools like Stable Diffusion are just that: tools. Used wisely, they can accelerate the work of a professional artist
