@@ -111,11 +111,6 @@
     eyes, extra mouths, and other strange features.
     </p>
     <p>
-    Finally, the reader should know that this study is completely informal, and was initiated mostly because the results
-    looked really, really funny. Some images are very wholesome, some really funny, but most are just boring. The author
-    is not a machine learning scientist, and the results should not be taken too seriously.
-    </p>
-    <p>
     Also, very ironically, both this current text, and the source code of the viewer, have been written with the extensive
     help of <a href = "https://github.com/features/copilot" target = "_blank">GitHub Copilot</a>.
     </p>
@@ -196,6 +191,10 @@
     be ill advised. Some hypothesis might still be offered however, without actual means of verification.
     </p>
     <p>
+    The point of these observations isn't necessarily to point out what the model can and cannot do. These are usually well known already,
+    and are easily observed. Here, we will try to rather focus on the cross examination of various prompts across multiple names and subjects.
+    </p>
+    <p>
     The first obvious property is that celebrity names have different internal "weight". When combined with a situation, some names will
     converge less than other towards a mix between the name and the situation, and instead will just produce pictures of the celebrity.
     For instance, most pictures generated using the name "Aretha Franklin" or "Albert Einstein" won't mix properly with situations like
@@ -269,5 +268,35 @@
     taken in portait mode, would be roughly be cropped this way by an automatic process feeding pictures into the machine learning set:<br/>
     <img src = "doc/automatic-crop.png" alt = "Viewer Zones"/>
     </p>
+
+    <h2>Closing statement</h2>
+    <p>
+    This study is completely informal, and was initiated mostly because the results looked really, really funny. Some images are very
+    wholesome, some really funny, but most are just boring. The author is not a machine learning scientist, and the results should
+    not be taken too seriously.
+    </p>
+    <p>
+    The genie of machine learning image generation is out of the bottle, and we need to make peace with the fact that people are going
+    to be able to download a model and generate images of celebrities in any situation they want. Technically, one way to fight this is to
+    make sure that the training set is curated properly, and that the model is not being used for malicious purposes, but given how the
+    model is already out there, it's probably not doable. We need to be prepared for the upcoming onslaught of fake celebrity images,
+    and the potential for abuse of this technology.
+    </p>
     </body>
+    <script>
+        function fixLink(link) {
+            if (link.href.indexOf("index.html#") != -1) {
+                link.href = link.href.replace("index.html", "viewer.html")
+            }
+        }
+        function parseElement(element) {
+            if (element.tagName == "A") {
+                fixLink(element)
+            }
+            for (var i = 0; i < element.children.length; i++) {
+                parseElement(element.children[i])
+            }
+        }
+        parseElement(document.documentElement)
+    </script>
 </html>
